@@ -17,6 +17,9 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
 (require 'init-color-theme)
 
+;; org-mod startup indent-mode
+(setq org-startup-indented t)
+
 
 ;; Which functionality to enable (use t or nil for true and false)
 (setq *win32* (eq system-type 'windows-nt) )
