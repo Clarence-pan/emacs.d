@@ -1,6 +1,7 @@
 ;; -*- coding: utf-8 -*-
 ;; M-x eval-buffer to set this configuration valid.
 
+;; for more help info, use M-x describe-variable
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -9,7 +10,10 @@
 
   ;; remove the start page
   ;; 去掉开始页
-  '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(tab-width 4)
+ '(tab-stop-list (0 4 8 12 16 20))
+ )
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -43,10 +47,10 @@
 (setq org-startup-indented t)
 
 ;; 开始打开文件列表
-;; open TODO list on startup
-(find-file "~/notes/TODO.org")
 ;; open init.el on startup
 (find-file "~/.emacs.d/init.el")
+;; open TODO list on startup
+(find-file "~/notes/TODO.org")
 
 ;; 操作系统探测
 ;; OS detection
@@ -74,6 +78,7 @@
 
 ;;用C-z i快速打开~/.emacs文件。
 (defun open-init-file ( )
+  "Open the initial file of emacs"
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
@@ -82,6 +87,7 @@
 
 ;;用C-z w快速打开工作目录
 (defun open-work-dir ( )
+  "Open working directory"
   (interactive)
   (find-file "d:/usr/work"))
 (global-set-key (kbd "C-z w") 'open-work-dir)
@@ -246,6 +252,7 @@
 
 ;; C-z k 快速打开keys帮助文档
 (defun open-key-info-file ()
+  "Open keys help file"
   (interactive)
   (split-window-horizontally)
   (find-file-other-window "~/notes/emacs-keys.org")
@@ -258,8 +265,12 @@
 (global-set-key (kbd "C-z v") 'viper-mode)
 
 ;;启动0.5秒后自动最大化 （windows下）
-(run-with-idle-timer 0.1 nil 'w32-send-sys-command 61488)
-
+;;(run-with-idle-timer 0.1 nil 'w32-send-sys-command 61488)
+(defun maximize-window ()  
+  "Make the window maximized"
+  (interactive)
+  (w32-send-sys-command 61488))
+(global-set-key (kbd "C-z x") 'maximize-window)
 
 ;; 参考文档
 ;; http://kidneyball.iteye.com/blog/1014537
