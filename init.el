@@ -13,15 +13,17 @@
 ;; start server mode
 (server-start)
 
-;; set plugin path
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+;; set plugin path then can require 'something
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
+(require 'init-color-theme)
+
 
 ;; Which functionality to enable (use t or nil for true and false)
 (setq *win32* (eq system-type 'windows-nt) )
 
 
 ;; remove the start page
-(kill-buffer "*GNU emacs*")
+;;(kill-buffer "*GNU emacs*")
 
 
 
