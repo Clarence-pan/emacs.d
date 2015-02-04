@@ -1,0 +1,3 @@
+#!/bin/sh
+emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
+

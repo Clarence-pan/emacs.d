@@ -1,0 +1,15 @@
+The directory ~/.emacs.d/server is unsafe
+--------------------------------------------------------
+Here is the stack trace:
+
+Debugger entered--Lisp error: (error "The directory ~/.emacs.d/server is unsafe")
+  signal(error ("The directory ~/.emacs.d/server is unsafe"))
+  error("The directory %s is unsafe" "~/.emacs.d/server")
+  server-ensure-safe-dir("~\\.emacs.d\\server\\")
+  server-start(nil)
+  call-interactively(server-start t nil)
+  execute-extended-command(nil)
+  call-interactively(execute-extended-command nil nil)
+
+--
+A: Change the direcotry owner to yourself. Then it's OK.

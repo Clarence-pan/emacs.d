@@ -1,290 +1,172 @@
 ;; -*- coding: utf-8 -*-
 ;; M-x eval-buffer to set this configuration valid.
+(setq emacs-load-start-time (current-time))
+(require 'time-date nil t)
+(defun echo ( msg )
+   "Echo @msg to status bar with time info"
+   (message (concat "+%ds: " msg)
+            (time-to-seconds (time-since emacs-load-start-time))))
 
-;; for more help info, use M-x describe-variable
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
 
-  ;; remove the start page
-  ;; 去掉开始页
- '(inhibit-startup-screen t)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
- ;; tab的宽度
- '(tab-width 4)
- '(tab-stop-list (0 4 8 12 16 20))
- )
+;;----------------------------------------------------------------------------
+;; Which functionality to enable (use t or nil for true and false)
+;;----------------------------------------------------------------------------
+(setq *macbook-pro-support-enabled* t)
+(setq *is-a-mac* (eq system-type 'darwin))
+(setq *is-carbon-emacs* (and *is-a-mac* (eq window-system 'mac)))
+(setq *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
+(setq *win32* (eq system-type 'windows-nt) )
+(setq *cygwin* (eq system-type 'cygwin) )
+(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
+(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
+(setq *linux-x* (and window-system *linux*) )
+(setq *xemacs* (featurep 'xemacs) )
+(setq *emacs23* (and (not *xemacs*) (or (>= emacs-major-version 23))) )
+(setq *emacs24* (and (not *xemacs*) (or (>= emacs-major-version 24))) )
+(setq *no-memory* (cond
+                   (*is-a-mac*
+                    (< (string-to-number (nth 0 (split-string (shell-command-to-string "sysctl hw.physmem")))) 4000000000))
+                   (*linux* nil)
+                   (t nil)
+                   ))
+
+;----------------------------------------------------------------------------
+; Functions (load all files in defuns-dir)
+; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
+;----------------------------------------------------------------------------
+(setq defuns-dir (expand-file-name "~/.emacs.d/defuns"))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+      (load file)))
+;----------------------------------------------------------------------------
+; Load configs for specific features and modes
+;----------------------------------------------------------------------------
+(require 'init-modeline)
+
+;;----------------------------------------------------------------------------
+;; Load configs for specific features and modes
+;;----------------------------------------------------------------------------
+(require 'cl-lib)
+(require 'init-compat)
+(require 'init-utils)
+(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
+(require 'idle-require)
+(require 'init-elpa)
+(require 'init-exec-path) ;; Set up $PATH
+(require 'init-frame-hooks)
+;; any file use flyspell should be initialized after init-spelling.el
+;; actually, I don't know which major-mode use flyspell.
+(require 'init-spelling)
+(require 'init-xterm)
+(require 'init-osx-keys)
+(require 'init-gui-frames)
+(require 'init-ido)
+(require 'init-maxframe)
+(require 'init-proxies)
+(require 'init-dired)
+(require 'init-isearch)
+(require 'init-uniquify)
+(require 'init-ibuffer)
+(require 'init-flymake)
+(require 'init-recentf)
+(require 'init-smex)
+(if *emacs24* (require 'init-helm))
+(require 'init-hippie-expand)
+(require 'init-windows)
+(require 'init-sessions)
+(require 'init-fonts)
+(require 'init-git)
+(require 'init-textile)
+(require 'init-markdown)
+(require 'init-csv)
+(require 'init-erlang)
+(require 'init-javascript)
+(when *emacs24*
+  (require 'init-org)
+  (require 'init-org-mime))
+(require 'init-css)
+(require 'init-python-mode)
+(require 'init-elisp)
+(if *emacs24* (require 'init-yasnippet))
+;; Use bookmark instead
+(require 'init-zencoding-mode)
+(require 'init-cc-mode)
+(require 'init-gud)
+(require 'init-cmake-mode)
+(require 'init-linum-mode)
+(require 'init-which-func)
+(require 'init-move-window-buffer)
+;; (require 'init-gist)
+(require 'init-moz)
+(require 'init-gtags)
+;; use evil mode (vi key binding)
+(require 'init-evil)
+(require 'init-sh)
+(require 'init-ctags)
+(require 'init-ace-jump-mode)
+(require 'init-bbdb)
+(require 'init-gnus)
+(require 'init-lua-mode)
+(require 'init-workgroups2)
+(require 'init-term-mode)
+(require 'init-web-mode)
+(require 'init-sr-speedbar)
+(require 'init-slime)
+(when *emacs24* (require 'init-company))
+(require 'init-stripe-buffer)
+(require 'init-eim) ;;  cannot be idle-required
+(require 'init-hs-minor-mode)
+
+
+;; misc has some crucial tools I need immediately
+(require 'init-misc)
+
+;; color theme
+(require 'color-theme)
+;;(require 'color-theme-molokai)
+;;(color-theme-molokai)
+;; This line must be after color-theme-molokai! Don't know why.
+;;(setq color-theme-illegal-faces "^\\(w3-\\|dropdown-\\|info-\\|linum\\|yas-\\|font-lock\\)")
+;; (color-theme-select 'color-theme-xp)
+;; (color-theme-xp)
+
+(setq idle-require-idle-delay 3)
+(setq idle-require-symbols '(init-writting
+                             init-lisp
+                             init-keyfreq
+                             init-elnode
+                             init-doxygen
+                             init-pomodoro
+                             init-emacspeak
+                             init-artbollocks-mode
+                             init-emacs-w3m
+                             init-semantic))
+(idle-require-mode 1) ;; starts loading
+
+(when (require 'time-date nil t)
+   (message "Emacs startup time: %d seconds."
+    (time-to-seconds (time-since emacs-load-start-time)))
+   )
+
+;;----------------------------------------------------------------------------
+;; Variables configured via the interactive 'customize' interface
+;;----------------------------------------------------------------------------
+(if (file-exists-p "~/.emacs.d/custom-init.el") (load-file "~/.emacs.d/custom-init.el"))
+
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-;; record start time for analyze performance
-;; 记录开始时间
-(setq emacs-load-start-time (current-time))
-
-;; color and background
-;; 定义颜色和背景
-(set-background-color "white")
-(set-foreground-color "black")
-(set-face-foreground 'region "green")
-(set-face-background 'region "blue")
-
-;; start server mode
-;; 设置为服务器模式 -- 能加快启动速度，客户端用emacsclient来打开
-(server-start)
-
-;; set plugin path then can require 'something
-;; 设置插件目录
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
-(require 'init-color-theme)
-
-;; 设置org-mode时候全用缩进模式，更好看
-;; org-mode startup indent-mode
-(setq org-startup-indented t)
-
-;; 开始打开文件列表
-;; open init.el on startup
-(find-file "~/.emacs.d/init.el")
-;; open TODO list on startup
-(find-file "~/notes/TODO.org")
-
-;; 操作系统探测
-;; OS detection
-(setq *win32* (eq system-type 'windows-nt) )
-
-;; 图像模式
-;; iimage mode
-(autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
-(autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(window-numbering-face ((t (:foreground "DeepPink" :underline "DeepPink" :weight bold))) t))
+;;; Local Variables:
+;;; no-byte-compile: t
+;;; End:
+(put 'erase-buffer 'disabled nil)
 
 
-;; remove the urgly toolbar
-;; 去除工具栏
-(tool-bar-mode -1)
 
-;;系统剪贴板快捷键（C-c C-c复制，C-c C-v粘贴）
-(global-set-key "\C-c\C-c" 'clipboard-kill-ring-save)
-(global-set-key "\C-cc" 'clipboard-kill-ring-save)
-(global-set-key "\C-c\C-v" 'clipboard-yank)
-(global-set-key "\C-cv" 'clipboard-yank)
-
-;;允许使用C-z作为命令前缀
-(define-prefix-command 'ctl-z-map)
-(global-set-key (kbd "C-z") 'ctl-z-map)
-
-;;用C-z i快速打开~/.emacs文件。
-(defun open-init-file ( )
-  "Open the initial file of emacs"
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(global-set-key (kbd "C-z i") 'open-init-file)
-(global-set-key (kbd "C-z e") 'eval-buffer)
-
-;;用C-z w快速打开工作目录
-(defun open-work-dir ( )
-  "Open working directory"
-  (interactive)
-  (find-file "d:/usr/work"))
-(global-set-key (kbd "C-z w") 'open-work-dir)
-
-;;用更好的ibuffer来管理buffer
-(require 'ibuffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;;默认进入text-mode，而不是没有什么功能的fundamental-mode
-;;(setq default-major-mode 'text-mode)
-;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;;默认显示行号
-(global-linum-mode 1)
-
-;;设置初始目录为rails项目目录
-;;(setq default-directory "d:\\rails")
-
-;;设定语言环境为utf-8
-;;(setq current-language-environment "UTF-8")
-;;(setq default-input-method "chinese-py")
-;;(setq locale-coding-system 'utf-8)
-;;(set-terminal-coding-system 'utf-8)
-;;(set-keyboard-coding-system 'utf-8)
-;;(set-selection-coding-system 'utf-8)
-;;(prefer-coding-system 'utf-8)
-
-;;打开一个新的shell
-(defun shell-new (name)
-  "Open new shell with specific name."
-  (interactive "sBuffer name: ")
-  (shell name)
-  )
-
-;; C-z k 快速打开keys帮助文档
-(defun open-key-info-file ()
-  (interactive)
-  (split-window-horizontally)
-  (find-file-other-window "~/notes/emacs-keys.org")
-  ;;(outline-mode)
-  ;;(hide-body)
-  )
-(global-set-key (kbd "C-z k") 'open-key-info-file)
-
-;; -*- coding: utf-8 -*-
-;; M-x eval-buffer to set this configuration valid.
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-
-  ;; remove the start page
-  ;; 去掉开始页
-  '(inhibit-startup-screen t))
-
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-;; record start time for analyze performance
-;; 记录开始时间
-(setq emacs-load-start-time (current-time))
-
-;; color and background
-;; 定义颜色和背景
-(set-background-color "white")
-(set-foreground-color "black")
-(set-face-foreground 'region "green")
-(set-face-background 'region "blue")
-
-;; start server mode
-;; 设置为服务器模式 -- 能加快启动速度，客户端用emacsclient来打开
-(server-start)
-
-;; set plugin path then can require 'something
-;; 设置插件目录
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
-(require 'init-color-theme)
-
-;; 设置org-mode时候全用缩进模式，更好看
-;; org-mode startup indent-mode
-(setq org-startup-indented t)
-
-;; 开始打开文件列表
-;; open TODO list on startup
-(find-file "~/notes/TODO.org")
-;; open init.el on startup
-(find-file "~/.emacs.d/init.el")
-
-;; 操作系统探测
-;; OS detection
-(setq *win32* (eq system-type 'windows-nt) )
-
-;; 图像模式
-;; iimage mode
-(autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
-(autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
-
-
-;; remove the urgly toolbar
-;; 去除工具栏
-(tool-bar-mode -1)
-
-;;系统剪贴板快捷键（C-c C-c复制，C-c C-v粘贴）
-(global-set-key "\C-c\C-c" 'clipboard-kill-ring-save)
-(global-set-key "\C-cc" 'clipboard-kill-ring-save)
-(global-set-key "\C-c\C-v" 'clipboard-yank)
-(global-set-key "\C-cv" 'clipboard-yank)
-
-;;允许使用C-z作为命令前缀
-(define-prefix-command 'ctl-z-map)
-(global-set-key (kbd "C-z") 'ctl-z-map)
-
-;;用C-z i快速打开~/.emacs文件。
-(defun open-init-file ( )
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(global-set-key (kbd "C-z i") 'open-init-file)
-(global-set-key (kbd "C-z e") 'eval-buffer)
-
-;;用C-z w快速打开工作目录
-(defun open-work-dir ( )
-  (interactive)
-  (find-file "d:/usr/work"))
-(global-set-key (kbd "C-z w") 'open-work-dir)
-
-;;用更好的ibuffer来管理buffer
-(require 'ibuffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;;默认进入text-mode，而不是没有什么功能的fundamental-mode
-;;(setq default-major-mode 'text-mode)
-;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;;默认显示行号
-(global-linum-mode 1)
-
-;;设置初始目录为rails项目目录
-;;(setq default-directory "d:\\rails")
-
-;;设定语言环境为utf-8
-;;(setq current-language-environment "UTF-8")
-;;(setq default-input-method "chinese-py")
-;;(setq locale-coding-system 'utf-8)
-;;(set-terminal-coding-system 'utf-8)
-;;(set-keyboard-coding-system 'utf-8)
-;;(set-selection-coding-system 'utf-8)
-;;(prefer-coding-system 'utf-8)
-
-;;打开一个新的shell
-(defun shell-new (name)
-  "Open new shell with specific name."
-  (interactive "sBuffer name: ")
-  (shell name)
-  )
-
-;; C-z k 快速打开keys帮助文档
-(defun open-key-info-file ()
-  "Open keys help file"
-  (interactive)
-  (split-window-horizontally)
-  (find-file-other-window "~/notes/emacs-keys.org")
-  ;;(outline-mode)
-  ;;(hide-body)
-  )
-(global-set-key (kbd "C-z k") 'open-key-info-file)
-
-;; C-z v 切换到viper模式
-(global-set-key (kbd "C-z v") 'toggle-viper-mode)
-
-;;启动0.5秒后自动最大化 （windows下）
-;;(run-with-idle-timer 0.1 nil 'w32-send-sys-command 61488)
-(defun maximize-window ()  
-  "Make the window maximized"
-  (interactive)
-  (w32-send-sys-command 61488))
-(global-set-key (kbd "C-z x") 'maximize-window)
-
-;; 参考文档
-;; http://kidneyball.iteye.com/blog/1014537
-
-
-;; Evil mode
-(require 'package)
-  (push '("marmalade" . "http://marmalade-repo.org/packages/")
-        package-archives )
-  (push '("melpa" . "http://melpa.milkbox.net/packages/")
-        package-archives)
-
-;;(require 'evil)
-;;(evil-mode 1)
 
