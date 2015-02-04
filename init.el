@@ -11,6 +11,8 @@
   ;; remove the start page
   ;; 去掉开始页
  '(inhibit-startup-screen t)
+
+ ;; tab的宽度
  '(tab-width 4)
  '(tab-stop-list (0 4 8 12 16 20))
  )
@@ -276,4 +278,13 @@
 ;; http://kidneyball.iteye.com/blog/1014537
 
 
+;; Evil mode
+(require 'package)
+  (push '("marmalade" . "http://marmalade-repo.org/packages/")
+        package-archives )
+  (push '("melpa" . "http://melpa.milkbox.net/packages/")
+        package-archives)
+
+;;(require 'evil)
+;;(evil-mode 1)
 
