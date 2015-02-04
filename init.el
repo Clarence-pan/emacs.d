@@ -262,7 +262,7 @@
 (global-set-key (kbd "C-z k") 'open-key-info-file)
 
 ;; C-z v 切换到viper模式
-(global-set-key (kbd "C-z v") 'viper-mode)
+(global-set-key (kbd "C-z v") 'toggle-viper-mode)
 
 ;;启动0.5秒后自动最大化 （windows下）
 ;;(run-with-idle-timer 0.1 nil 'w32-send-sys-command 61488)
