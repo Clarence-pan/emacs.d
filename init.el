@@ -7,7 +7,7 @@
    (message (concat "+%ds: " msg)
             (time-to-seconds (time-since emacs-load-start-time))))
 
-
+(echo "Initialzing...")
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;;----------------------------------------------------------------------------
@@ -40,6 +40,8 @@
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
       (load file)))
+
+(echo "loading....")
 ;----------------------------------------------------------------------------
 ; Load configs for specific features and modes
 ;----------------------------------------------------------------------------

@@ -130,21 +130,6 @@
 ;; 参考文档
 ;; http://kidneyball.iteye.com/blog/1014537
 
-
-;; Evil mode
-;;(require 'package)
-;;  (push '("marmalade" . "http://marmalade-repo.org/packages/")
-;;        package-archives )
-;;  (push '("melpa" . "http://melpa.milkbox.net/packages/")
-;;        package-archives)
-
-;;(require 'evil)
-;;(evil-mode 1)
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-;;--------------------------------------------------------------------------------
-
-
 ;; 开始打开文件列表
 ;; open init.el on startup
 ;;(find-file "~/.emacs.d/init.el")
