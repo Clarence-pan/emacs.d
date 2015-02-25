@@ -39,8 +39,9 @@
     "$" 'org-end-of-line ; smarter behaviour on headlines etc.
     "^" 'org-beginning-of-line ; ditto
     "-" 'org-ctrl-c-minus ; change bullet style
-    "<" 'org-metaleft ; out-dent
-    ">" 'org-metaright ; indent
+;    "<" 'org-metaleft ; out-dent
+;    ">" 'org-metaright ; indent
+    (kbd "M-x") 'smex
     (kbd "TAB") 'org-cycle
     )
 

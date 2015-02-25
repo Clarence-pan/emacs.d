@@ -2,20 +2,15 @@
 (echo "Custom initializing...")
 
 ;; for more help info, use M-x describe-variable
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-
-  ;; remove the start page
   ;; 去掉开始页
- '(inhibit-startup-screen t)
-
- ;; tab的宽度
- '(tab-width 4)
- '(tab-stop-list (0 4 8 12 16 20))
- )
+(setq inhibit-startup-screen t)
+  ;; 开始时显示TODO'
+(setq initial-buffer-choice "TODO.org")
+;; tab的宽度
+(setq tab-width 4)
+(setq tab-stop-list '(0 4 8 12 16 20))
+(setq w3m-command "w3m.cmd")
+(setq browse-url-generic-program "chrome.cmd")
 
 ;; color and background
 ;; 定义颜色和背景
@@ -91,13 +86,13 @@
 ;;(setq default-directory "d:\\rails")
 
 ;;设定语言环境为utf-8
-;;(setq current-language-environment "UTF-8")
-;;(setq default-input-method "chinese-py")
-;;(setq locale-coding-system 'utf-8)
-;;(set-terminal-coding-system 'utf-8)
-;;(set-keyboard-coding-system 'utf-8)
-;;(set-selection-coding-system 'utf-8)
-;;(prefer-coding-system 'utf-8)
+(setq current-language-environment "UTF-8")
+;(setq default-input-method "chinese-py")
+;(setq locale-coding-system 'utf-8)
+;(set-terminal-coding-system 'utf-8)
+;(set-keyboard-coding-system 'utf-8)
+;(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 ;;打开一个新的shell
 (defun shell-new (name)
@@ -121,7 +116,7 @@
 
 ;;启动0.5秒后自动最大化 （windows下）
 ;;(run-with-idle-timer 0.1 nil 'w32-send-sys-command 61488)
-(defun maximize-window ()  
+(defun maximize-window ()
   "Make the window maximized"
   (interactive)
   (w32-send-sys-command 61488))
@@ -137,3 +132,4 @@
 (find-file "~/notes/TODO.org")
 
 (message "Custom initialized.")
+(hl-line-mode t)

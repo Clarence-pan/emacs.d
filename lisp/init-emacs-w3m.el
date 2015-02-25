@@ -47,6 +47,7 @@
       (cond
        (*is-a-mac* "open")
        (*linux* (executable-find "firefox"))
+	   (t browse-url-generic-program) ; else do not change its value
        ))
 (setq browse-url-browser-function 'browse-url-generic)
 
