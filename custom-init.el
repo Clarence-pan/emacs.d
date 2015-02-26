@@ -127,8 +127,6 @@
 
 (global-set-key (kbd "<f9>") 'smex)
 
-;; xgrep
-(setq xgrep-find-command "find . ( -path ./.svn -o -path ./.git -o -path ./.idea -o -path ./.project ) -prune -o -type f -name \\*.\\* -print0 | xargs -0 grep -nH --color=always -e ")
 (defun shell-execute (command-args)
   "Run shell command"
   (interactive
@@ -136,6 +134,17 @@
     (list (read-shell-command (concat default-directory "# ")))))
   (compilation-start command-args nil))
 
+(global-set-key (kbd "<f5>") 'shell-execute)
+
+(defun git-commit (command-args)
+  "Run git commit from current directory"
+  (interactive
+   (progn
+     (list (read-shell-command (concat default-directory "# ") "git commit ."))))
+  (shell-execute command-args))
+
+;; xgrep
+(setq xgrep-find-command "find . ( -path ./.svn -o -path ./.git -o -path ./.idea -o -path ./.project ) -prune -o -type f -name \\*.\\* -print0 | xargs -0 grep -nH --color=always -e ")
 (defun xgrep (command-args)
   "Run grep with options -- instead of `grep-find'.
 `cd' might be needed to change the default-directory before this command."
@@ -145,12 +154,6 @@
              (concat  "Run grep (" default-directory "): " ) xgrep-find-command))))
   (compilation-start command-args 'grep-mode))
 
-(defun git-commit (command-args)
-  "Run git commit from current directory"
-  (interactive
-   (progn
-     (list (read-shell-command (concat default-directory "# ") "git commit ."))))
-  (shell-execute command-args))
 
 ;; 开始打开文件列表
 ;; open init.el on startup
