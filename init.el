@@ -139,9 +139,9 @@
                              init-lisp
                              init-keyfreq
                              init-elnode
-                             init-doxygen
+                            ;; init-doxygen
                              init-pomodoro
-                             init-emacspeak
+                            ;; init-emacspeak
                              init-artbollocks-mode
                              init-emacs-w3m
                              init-semantic))
@@ -157,6 +157,8 @@
 ;;----------------------------------------------------------------------------
 (if (file-exists-p "~/.emacs.d/custom-init.el") (load-file "~/.emacs.d/custom-init.el"))
 
+(defun w3m-browse-url (url &optional _new-window)
+  (browse-url-generic url _new-window))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -168,7 +170,6 @@
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)
-
 
 
 

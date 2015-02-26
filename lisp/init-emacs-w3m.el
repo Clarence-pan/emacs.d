@@ -34,7 +34,7 @@
 
 (setq w3m-command-arguments       '("-F" "-cookie")
       w3m-mailto-url-function     'compose-mail
-      browse-url-browser-function 'w3m
+    ;;  browse-url-browser-function 'w3m
       mm-text-html-renderer       'w3m)
 
 ;bind this function to ‘a’, which is the normal w3m bookmark binding:
