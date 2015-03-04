@@ -4,8 +4,6 @@
 ;; for more help info, use M-x describe-variable
   ;; 去掉开始页
 (setq inhibit-startup-screen t)
-  ;; 开始时显示TODO'
-(setq initial-buffer-choice "TODO.org")
 ;; tab的宽度
 (setq tab-width 4)
 (setq tab-stop-list '(0 4 8 12 16 20))
@@ -125,6 +123,8 @@
 ;; 参考文档
 ;; http://kidneyball.iteye.com/blog/1014537
 
+(global-set-key (kbd "S-SPC") 'ace-jump-char-mode)
+(global-set-key (kbd "<f6>") 'ido-switch-buffer)
 (global-set-key (kbd "<f9>") 'smex)
 
 (defun shell-execute (command-args)
@@ -135,6 +135,7 @@
   (compilation-start command-args nil))
 
 (global-set-key (kbd "<f5>") 'shell-execute)
+(global-set-key (kbd "<C-f5>") 'git-commit)
 
 (defun git-commit (command-args)
   "Run git commit from current directory"

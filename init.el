@@ -107,6 +107,7 @@
 (require 'init-evil)
 (require 'init-sh)
 (require 'init-ctags)
+;; use ace - easy jump to any location in emacs view in three key-strokes
 (require 'init-ace-jump-mode)
 (require 'init-bbdb)
 (require 'init-gnus)
