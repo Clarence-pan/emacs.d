@@ -136,6 +136,14 @@
 
 (global-set-key (kbd "<f5>") 'shell-execute)
 (global-set-key (kbd "<C-f5>") 'git-commit)
+(global-set-key (kbd "<C-S-f5>") 'git-commit-backup)
+
+(defun git-commit-backup (command-args)
+  "Run git commit from current directory"
+  (interactive
+   (progn
+     (list (read-shell-command (concat default-directory "# ") "git commit . -m backup"))))
+  (shell-execute command-args))
 
 (defun git-commit (command-args)
   "Run git commit from current directory"
