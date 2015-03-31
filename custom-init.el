@@ -138,6 +138,8 @@
 (global-set-key (kbd "<C-f5>") 'git-commit)
 (global-set-key (kbd "<C-S-f5>") 'git-commit-backup)
 
+(global-set-key (kbd "<f7>") 'switch-window)
+
 (defun git-commit-backup (command-args)
   "Run git commit from current directory"
   (interactive
