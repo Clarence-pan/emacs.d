@@ -124,7 +124,11 @@
 ;; http://kidneyball.iteye.com/blog/1014537
 
 (global-set-key (kbd "S-SPC") 'ace-jump-char-mode)
+(global-set-key (kbd "<f5>") 'shell-execute)
+(global-set-key (kbd "<C-f5>") 'git-commit)
+(global-set-key (kbd "<C-S-f5>") 'git-commit-backup)
 (global-set-key (kbd "<f6>") 'ido-switch-buffer)
+(global-set-key (kbd "<f7>") 'switch-window)
 (global-set-key (kbd "<f9>") 'smex)
 
 (defun shell-execute (command-args)
@@ -134,11 +138,6 @@
     (list (read-shell-command (concat default-directory "# ")))))
   (compilation-start command-args nil))
 
-(global-set-key (kbd "<f5>") 'shell-execute)
-(global-set-key (kbd "<C-f5>") 'git-commit)
-(global-set-key (kbd "<C-S-f5>") 'git-commit-backup)
-
-(global-set-key (kbd "<f7>") 'switch-window)
 
 (defun git-commit-backup (command-args)
   "Run git commit from current directory"
