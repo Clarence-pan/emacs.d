@@ -128,6 +128,7 @@
 (global-set-key (kbd "<C-f5>") 'git-commit)
 (global-set-key (kbd "<M-f5>") 'git-commit-backup)
 (global-set-key (kbd "<f6>") 'ido-switch-buffer)
+(global-set-key (kbd "<C-tab>") 'ido-switch-buffer)
 (global-set-key (kbd "<f7>") 'switch-window)
 (global-set-key (kbd "<f9>") 'smex)
 
