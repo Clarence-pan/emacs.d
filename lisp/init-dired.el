@@ -31,6 +31,8 @@ if no files marked, always operate on current line in dired-mode
      (define-key dired-mode-map ")" 'dired-details-toggle)
      ;; }
      (define-key dired-mode-map "/" 'diredext-exec-git-command-in-shell)
+     (define-key dired-mode-map "j" 'diredp-next-line)
+     (define-key dired-mode-map "k" 'diredp-previous-line)
 
      (require 'dired+)
      (setq dired-recursive-deletes 'top)
