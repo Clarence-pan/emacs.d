@@ -9,7 +9,7 @@
 (setq w3m-home-page
       (if (file-readable-p "~/html/home.html")
         (concat "file://" (expand-file-name "~/html/home.html"))
-        "http://www.google.com.au"))
+        "http://www.baidu.com"))
 
 (setq w3m-use-toolbar t
       ;w3m-use-tab     nil
@@ -22,7 +22,8 @@
 (setq w3m-search-default-engine "g")
 (eval-after-load "w3m-search" '(progn
                                  ; C-u S g RET <search term> RET
-                                 (add-to-list 'w3m-search-engine-alist '("g" "http://www.google.com.au/search?hl=en&q=%s" utf-8))
+                                 ;(add-to-list 'w3m-search-engine-alist '("g" "http://www.google.com.au/search?hl=en&q=%s" utf-8))
+                                 (add-to-list 'w3m-search-engine-alist '("g" "http://www.baidu.com/s?wd=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("wz" "http://zh.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("q" "http://www.google.com.au/search?hl=en&q=%s+site:stackoverflow.com" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("s" "http://code.ohloh.net/search?s=%s&browser=Default"  utf-8))
@@ -58,13 +59,13 @@
   (require 'w3m)
   (let ((keyword (w3m-url-encode-string (thing-at-point 'symbol))))
     ;; google
-    (browse-url-generic (concat "http://www.google.com.au/search?hl=en&q=%22"
+    (browse-url-generic (concat "http://www.baidu.com/s?wd="
                                 keyword
                                 "%22"
                                 (if buffer-file-name
 									(concat "+filetype%3A" (file-name-extension buffer-file-name))
 									"")  ))
-    (browse-url-generic (concat "http://www.google.com.au/search?hl=en&q="
+    (browse-url-generic (concat "http://www.baidu.com/s?wd="
                                 keyword
                                 "+site:stackoverflow.com" ))
     ;; koders.com
