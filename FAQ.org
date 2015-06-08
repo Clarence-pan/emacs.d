@@ -1,4 +1,4 @@
-The directory ~/.emacs.d/server is unsafe
+* The directory ~/.emacs.d/server is unsafe
 --------------------------------------------------------
 Here is the stack trace:
 
@@ -13,3 +13,10 @@ Debugger entered--Lisp error: (error "The directory ~/.emacs.d/server is unsafe"
 
 --
 A: Change the direcotry owner to yourself. Then it's OK.
+
+
+* Reference:
+http://www.codelast.com/?p=3645
+
+
+
