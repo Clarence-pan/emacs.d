@@ -166,3 +166,5 @@
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)
+
+(xterm-mouse-mode 0)
