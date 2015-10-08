@@ -57,87 +57,88 @@
 (require 'idle-require)
 (require 'init-elpa)
 (require 'init-exec-path) ;; Set up $PATH
-(require 'init-frame-hooks)
+;;(require 'init-frame-hooks)
 ;; any file use flyspell should be initialized after init-spelling.el
 ;; actually, I don't know which major-mode use flyspell.
-(require 'init-spelling)
-(require 'init-xterm)
-(require 'init-osx-keys)
-(require 'init-gui-frames)
+;;(require 'init-spelling)
+;;(require 'init-xterm)
+;;(require 'init-osx-keys)
+;;(require 'init-gui-frames)
 (require 'init-ido)
-(require 'init-maxframe)
-(require 'init-proxies)
+;;(require 'init-maxframe)
+;;(require 'init-proxies)
 (require 'init-dired)
-(require 'init-isearch)
-(require 'init-uniquify)
+;;;(require 'init-isearch)
+;;;(require 'init-uniquify)
 (require 'init-ibuffer)
-(require 'init-flymake)
+;;;(require 'init-flymake)
 (require 'init-recentf)
-(require 'init-smex)
-(if *emacs24* (require 'init-helm))
-(require 'init-hippie-expand)
-(require 'init-windows)
-(require 'init-sessions)
-(require 'init-fonts)
-(require 'init-git)
-(require 'init-textile)
-(require 'init-markdown)
-(require 'init-csv)
-(require 'init-erlang)
-(require 'init-javascript)
+;;;(require 'init-smex)
+;;;(if *emacs24* (require 'init-helm))
+;;;(require 'init-hippie-expand)
+;;;(require 'init-windows)
+;;;(require 'init-sessions)
+;;;(require 'init-fonts)
+;;;(require 'init-git)
+;;;(require 'init-textile)
+;;;(require 'init-markdown)
+;;;(require 'init-csv)
+;;;(require 'init-erlang)
+;;;(require 'init-javascript)
 (when *emacs24*
   (require 'init-org)
   (require 'init-org-mime))
-(require 'init-css)
-(require 'init-python-mode)
-(require 'init-elisp)
-(if *emacs24* (require 'init-yasnippet))
-;; Use bookmark instead
-(require 'init-zencoding-mode)
-(require 'init-cc-mode)
-(require 'init-gud)
-(require 'init-cmake-mode)
-(require 'init-linum-mode)
-(require 'init-which-func)
-(require 'init-move-window-buffer)
-;; (require 'init-gist)
-(require 'init-moz)
-(require 'init-gtags)
-;; use evil mode (vi key binding)
+;;;(require 'init-css)
+;;;(require 'init-python-mode)
+;;;;;(require 'init-elisp)
+;;;(if *emacs24* (require 'init-yasnippet))
+;;;;; Use bookmark instead
+;;;(require 'init-zencoding-mode)
+;;;(require 'init-cc-mode)
+;;;(require 'init-gud)
+;;;(require 'init-cmake-mode)
+;;;(require 'init-linum-mode)
+;;;(require 'init-which-func)
+;;;(require 'init-move-window-buffer)
+;;;;; (require 'init-gist)
+;;;(require 'init-moz)
+;;;(require 'init-gtags)
+;;;;; use evil mode (vi key binding)
 (require 'init-evil)
-(require 'init-sh)
-(require 'init-ctags)
-;; use ace - easy jump to any location in emacs view in three key-strokes
-(require 'init-ace-jump-mode)
-(require 'init-bbdb)
-(require 'init-gnus)
-(require 'init-lua-mode)
-(require 'init-workgroups2)
-(require 'init-term-mode)
-(require 'init-web-mode)
-(require 'init-sr-speedbar)
-(require 'init-slime)
-(when *emacs24* (require 'init-company))
-(require 'init-stripe-buffer)
-(require 'init-eim) ;;  cannot be idle-required
-(require 'init-hs-minor-mode)
-
-
-;; misc has some crucial tools I need immediately
-(require 'init-misc)
-
-;; color theme
-(require 'color-theme)
-;;(require 'color-theme-molokai)
-;;(color-theme-molokai)
-;; This line must be after color-theme-molokai! Don't know why.
-;;(setq color-theme-illegal-faces "^\\(w3-\\|dropdown-\\|info-\\|linum\\|yas-\\|font-lock\\)")
-;; (color-theme-select 'color-theme-xp)
-;; (color-theme-xp)
+;;;(require 'init-sh)
+;;;(require 'init-ctags)
+;;;;; use ace - easy jump to any location in emacs view in three key-strokes
+;;;(require 'init-ace-jump-mode)
+;;;(require 'init-bbdb)
+;;;(require 'init-gnus)
+;;;(require 'init-lua-mode)
+;;;(require 'init-workgroups2)
+;;;(require 'init-term-mode)
+;;;(require 'init-web-mode)
+;;;(require 'init-sr-speedbar)
+;;;(require 'init-slime)
+;;;(when *emacs24* (require 'init-company))
+;;;(require 'init-stripe-buffer)
+;;;(require 'init-eim) ;;  cannot be idle-required
+;;;(require 'init-hs-minor-mode)
+;;;
+;;;
+;;;;; misc has some crucial tools I need immediately
+;;;(require 'init-misc)
+;;;
+;;;;; color theme
+;;;(require 'color-theme)
+;;;;;(require 'color-theme-molokai)
+;;;;;(color-theme-molokai)
+;;;;; This line must be after color-theme-molokai! Don't know why.
+;;;;;(setq color-theme-illegal-faces "^\\(w3-\\|dropdown-\\|info-\\|linum\\|yas-\\|font-lock\\)")
+;;;;; (color-theme-select 'color-theme-xp)
+;;;;; (color-theme-xp)
 
 (setq idle-require-idle-delay 3)
 (setq idle-require-symbols '(init-writting
                              init-lisp
+                             init-elisp
                              init-keyfreq
                              init-elnode
                             ;; init-doxygen
@@ -148,29 +149,31 @@
                              init-semantic))
 (idle-require-mode 1) ;; starts loading
 
-(when (require 'time-date nil t)
-   (message "Emacs startup time: %d seconds."
-    (time-to-seconds (time-since emacs-load-start-time)))
-   )
+;;(when (require 'time-date nil t)
+;;   (message "Emacs startup time: %d seconds."
+;;    (time-to-seconds (time-since emacs-load-start-time)))
+;;   )
+(echo "Emacs startup...end")
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
 (if (file-exists-p "~/.emacs.d/custom-init.el") (load-file "~/.emacs.d/custom-init.el"))
 
+(echo "Custom initialization completed")
+
 (defun w3m-browse-url (url &optional _new-window)
   (browse-url-generic url _new-window))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(window-numbering-face ((t (:foreground "DeepPink" :underline "DeepPink" :weight bold))) t))
-;;; Local Variables:
-;;; no-byte-compile: t
-;;; End:
-(put 'erase-buffer 'disabled nil)
-
+;;;(custom-set-faces
+;;; ;; custom-set-faces was added by Custom.
+;;; ;; If you edit it by hand, you could mess it up, so be careful.
+;;; ;; Your init file should contain only one such instance.
+;;; ;; If there is more than one, they won't work right.
+;;; '(window-numbering-face ((t (:foreground "DeepPink" :underline "DeepPink" :weight bold))) t))
+;;;;;; Local Variables:
+;;;;;; no-byte-compile: t
+;;;;;; End:
+;;;(put 'erase-buffer 'disabled nil)
 
 
