@@ -73,7 +73,7 @@
 (require 'init-ibuffer)
 ;;;(require 'init-flymake)
 (require 'init-recentf)
-;;;(require 'init-smex)
+(require 'init-smex)
 ;;;(if *emacs24* (require 'init-helm))
 ;;;(require 'init-hippie-expand)
 ;;;(require 'init-windows)

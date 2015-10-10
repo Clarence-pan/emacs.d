@@ -175,6 +175,20 @@
 (hl-line-mode t)
 (setq browse-url-browser-function 'browse-url-default-browser)
 
+(defun org-new-src-block (src-type)
+  "Begin a new SRC block"
+  (interactive
+   (progn
+     (list (read-from-minibuffer "New source block type: " "objc"))))
+  (progn
+    (evil-open-below)
+    (insert (concat "\n#+BEGIN_SRC " src-type))
+    (insert "\n")
+    (insert "\n#+END_SRC")
+    (previous-line)))
+
+;;(global-set-key "\C-c`" 'org-new-src-block)
+
 ;; 开始打开文件列表
 ;; open init.el on startup
 ;;(find-file "~/.emacs.d/init.el")
