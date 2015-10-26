@@ -181,10 +181,8 @@
    (progn
      (list (read-from-minibuffer "New source block type: " "objc"))))
   (progn
-    (evil-open-below)
-    (insert (concat "\n#+BEGIN_SRC " src-type))
-    (insert "\n")
-    (insert "\n#+END_SRC")
+    (evil-open-below 1)
+    (insert (concat "#+BEGIN_SRC " src-type "\n\n#+END_SRC" ))
     (previous-line)))
 
 ;;(global-set-key "\C-c`" 'org-new-src-block)
